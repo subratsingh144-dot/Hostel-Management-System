@@ -1,0 +1,366 @@
+
+//  let q= `INSERT INTO floors (floor_number) VALUES (0),(1),(2),(3),(4),(5)`;
+// let q = `INSERT INTO rooms (floor_id, room_number, total_beds, available_beds) VALUES
+
+
+// (1, 1, 4, 4),
+// (1, 2, 4, 4),
+// (1, 3, 4, 4),
+// (1, 4, 4, 4),
+// (1, 5, 4, 4),
+
+
+// (2, 101, 4, 4),
+// (2, 102, 4, 4),
+// (2, 103, 4, 4),
+// (2, 104, 4, 4),
+// (2, 105, 4, 4),
+
+
+// (3, 201, 4, 4),
+// (3, 202, 4, 4),
+// (3, 203, 4, 4),
+// (3, 204, 4, 4),
+// (3, 205, 4, 4),
+
+// (4, 301, 4, 4),
+// (4, 302, 4, 4),
+// (4, 303, 4, 4),
+// (4, 304, 4, 4),
+// (4, 305, 4, 4),
+
+
+// (5, 401, 4, 4),
+// (5, 402, 4, 4),
+// (5, 403, 4, 4),
+// (5, 404, 4, 4),
+// (5, 405, 4, 4),
+
+
+// (6, 501, 4, 4),
+// (6, 502, 4, 4),
+// (6, 503, 4, 4),
+// (6, 504, 4, 4),
+// (6, 505, 4, 4);`
+
+// here q is query
+
+// let q = `INSERT INTO users 
+// (id, username, email, password, role, floor_id, room_id, bed_no)
+// VALUES
+
+
+// (UUID(), 'Admin', 'admin@hostel.com', 'hostel_admin@2026', 'admin', NULL, NULL, NULL),
+
+
+// (UUID(), 'User1', 'user1@mail.com', 'user1@2026', 'user', 1, 1, 1),
+// (UUID(), 'User2', 'user2@mail.com', 'user2@2026', 'user', 1, 1, 2),
+// (UUID(), 'User3', 'user3@mail.com', 'user3@2026', 'user', 1, 1, 3),
+// (UUID(), 'User4', 'user4@mail.com', 'user4@2026', 'user', 1, 1, 4),
+
+// (UUID(), 'User5', 'user5@mail.com', 'user5@2026', 'user', 1, 2, 1),
+// (UUID(), 'User6', 'user6@mail.com', 'user6@2026', 'user', 1, 2, 2),
+// (UUID(), 'User7', 'user7@mail.com', 'user7@2026', 'user', 1, 2, 3),
+// (UUID(), 'User8', 'user8@mail.com', 'user8@2026', 'user', 1, 2, 4),
+
+
+// (UUID(), 'User9', 'user9@mail.com', 'user9@2026', 'user', 2, 6, 1),
+// (UUID(), 'User10', 'user10@mail.com', 'user10@2026', 'user', 2, 6, 2),
+// (UUID(), 'User11', 'user11@mail.com', 'user11@2026', 'user', 2, 6, 3),
+// (UUID(), 'User12', 'user12@mail.com', 'user12@2026', 'user', 2, 6, 4),
+
+// (UUID(), 'User13', 'user13@mail.com', 'user13@2026', 'user', 2, 7, 1),
+// (UUID(), 'User14', 'user14@mail.com', 'user14@2026', 'user', 2, 7, 2),
+// (UUID(), 'User15', 'user15@mail.com', 'user15@2026', 'user', 2, 7, 3),
+// (UUID(), 'User16', 'user16@mail.com', 'user16@2026', 'user', 2, 7, 4),
+
+
+// (UUID(), 'User17', 'user17@mail.com', 'user17@2026', 'user', 3, 11, 1),
+// (UUID(), 'User18', 'user18@mail.com', 'user18@2026', 'user', 3, 11, 2),
+// (UUID(), 'User19', 'user19@mail.com', 'user19@2026', 'user', 3, 11, 3),
+// (UUID(), 'User20', 'user20@mail.com', 'user20@2026', 'user', 3, 11, 4),
+
+// (UUID(), 'User21', 'user21@mail.com', 'user21@2026', 'user', 3, 12, 1),
+// (UUID(), 'User22', 'user22@mail.com', 'user22@2026', 'user', 3, 12, 2),
+// (UUID(), 'User23', 'user23@mail.com', 'user23@2026', 'user', 3, 12, 3),
+// (UUID(), 'User24', 'user24@mail.com', 'user24@2026', 'user', 3, 12, 4),
+
+
+// (UUID(), 'User25', 'user25@mail.com', 'user25@2026', 'user', 4, 16, 1),
+// (UUID(), 'User26', 'user26@mail.com', 'user26@2026', 'user', 4, 16, 2),
+// (UUID(), 'User27', 'user27@mail.com', 'user27@2026', 'user', 4, 16, 3),
+// (UUID(), 'User28', 'user28@mail.com', 'user28@2026', 'user', 4, 16, 4),
+
+// (UUID(), 'User29', 'user29@mail.com', 'user29@2026', 'user', 4, 17, 1),
+// (UUID(), 'User30', 'user30@mail.com', 'user30@2026', 'user', 4, 17, 2),
+// (UUID(), 'User31', 'user31@mail.com', 'user31@2026', 'user', 4, 17, 3),
+// (UUID(), 'User32', 'user32@mail.com', 'user32@2026', 'user', 4, 17, 4),
+
+
+// (UUID(), 'User33', 'user33@mail.com', 'user33@2026', 'user', 5, 21, 1),
+// (UUID(), 'User34', 'user34@mail.com', 'user34@2026', 'user', 5, 21, 2),
+// (UUID(), 'User35', 'user35@mail.com', 'user35@2026', 'user', 5, 21, 3),
+// (UUID(), 'User36', 'user36@mail.com', 'user36@2026', 'user', 5, 21, 4),
+
+
+// (UUID(), 'User37', 'user37@mail.com', 'user37@2026', 'user', 6, 26, 1),
+// (UUID(), 'User38', 'user38@mail.com', 'user38@2026', 'user', 6, 26, 2),
+// (UUID(), 'User39', 'user39@mail.com', 'user39@2026', 'user', 6, 26, 3),
+// (UUID(), 'User40', 'user40@mail.com', 'user40@2026', 'user', 6, 26, 4),
+
+
+// (UUID(), 'User41', 'user41@mail.com', 'user41@2026', 'user', 2, 8, 1),
+// (UUID(), 'User42', 'user42@mail.com', 'user41@2026', 'user', 2, 8, 2),
+// (UUID(), 'User43', 'user43@mail.com', 'user41@2026', 'user', 3, 13, 1),
+// (UUID(), 'User44', 'user44@mail.com', 'user41@2026', 'user', 3, 13, 2),
+// (UUID(), 'User45', 'user45@mail.com', 'user41@2026', 'user', 4, 18, 1),
+// (UUID(), 'User46', 'user46@mail.com', 'user41@2026', 'user', 4, 18, 2),
+// (UUID(), 'User47', 'user47@mail.com', 'user41@2026', 'user', 5, 22, 1),
+// (UUID(), 'User48', 'user48@mail.com', 'user41@2026', 'user', 5, 22, 2),
+// (UUID(), 'User49', 'user49@mail.com', 'user41@2026', 'user', 6, 27, 1),
+// (UUID(), 'User50', 'user50@mail.com', 'user41@2026', 'user', 6, 27, 2);`
+
+  // try {
+  //    connection.query(q,(err,res)=>{
+  //     if(err) throw err;
+  //     console.log("users successfully");
+  //    });
+  // }catch(err){
+  //   console.log("error inserting users",err.message);
+  // }
+
+
+
+
+   
+// Users data (plain passwords here will be hashed before insert)
+
+// const users = [
+//   { username: 'Admin', email: 'admin@hostel.com', password: 'hostel_admin@2026', role: 'admin', floor_id: null, room_id: null, bed_no: null },
+
+//   { username: 'User1', email: 'user1@mail.com', password: 'user1@2026', role: 'user', floor_id: 1, room_id: 1, bed_no: 1 },
+//   { username: 'User2', email: 'user2@mail.com', password: 'user2@2026', role: 'user', floor_id: 1, room_id: 1, bed_no: 2 },
+//   { username: 'User3', email: 'user3@mail.com', password: 'user3@2026', role: 'user', floor_id: 1, room_id: 1, bed_no: 3 },
+//   { username: 'User4', email: 'user4@mail.com', password: 'user4@2026', role: 'user', floor_id: 1, room_id: 1, bed_no: 4 },
+
+//   { username: 'User5', email: 'user5@mail.com', password: 'user5@2026', role: 'user', floor_id: 1, room_id: 2, bed_no: 1 },
+//   { username: 'User6', email: 'user6@mail.com', password: 'user6@2026', role: 'user', floor_id: 1, room_id: 2, bed_no: 2 },
+//   { username: 'User7', email: 'user7@mail.com', password: 'user7@2026', role: 'user', floor_id: 1, room_id: 2, bed_no: 3 },
+//   { username: 'User8', email: 'user8@mail.com', password: 'user8@2026', role: 'user', floor_id: 1, room_id: 2, bed_no: 4 },
+
+//   { username: 'User9', email: 'user9@mail.com', password: 'user9@2026', role: 'user', floor_id: 2, room_id: 6, bed_no: 1 },
+//   { username: 'User10', email: 'user10@mail.com', password: 'user10@2026', role: 'user', floor_id: 2, room_id: 6, bed_no: 2 },
+//   { username: 'User11', email: 'user11@mail.com', password: 'user11@2026', role: 'user', floor_id: 2, room_id: 6, bed_no: 3 },
+//   { username: 'User12', email: 'user12@mail.com', password: 'user12@2026', role: 'user', floor_id: 2, room_id: 6, bed_no: 4 },
+
+//   { username: 'User13', email: 'user13@mail.com', password: 'user13@2026', role: 'user', floor_id: 2, room_id: 7, bed_no: 1 },
+//   { username: 'User14', email: 'user14@mail.com', password: 'user14@2026', role: 'user', floor_id: 2, room_id: 7, bed_no: 2 },
+//   { username: 'User15', email: 'user15@mail.com', password: 'user15@2026', role: 'user', floor_id: 2, room_id: 7, bed_no: 3 },
+//   { username: 'User16', email: 'user16@mail.com', password: 'user16@2026', role: 'user', floor_id: 2, room_id: 7, bed_no: 4 },
+
+//   { username: 'User17', email: 'user17@mail.com', password: 'user17@2026', role: 'user', floor_id: 3, room_id: 11, bed_no: 1 },
+//   { username: 'User18', email: 'user18@mail.com', password: 'user18@2026', role: 'user', floor_id: 3, room_id: 11, bed_no: 2 },
+//   { username: 'User19', email: 'user19@mail.com', password: 'user19@2026', role: 'user', floor_id: 3, room_id: 11, bed_no: 3 },
+//   { username: 'User20', email: 'user20@mail.com', password: 'user20@2026', role: 'user', floor_id: 3, room_id: 11, bed_no: 4 },
+
+//   { username: 'User21', email: 'user21@mail.com', password: 'user21@2026', role: 'user', floor_id: 3, room_id: 12, bed_no: 1 },
+//   { username: 'User22', email: 'user22@mail.com', password: 'user22@2026', role: 'user', floor_id: 3, room_id: 12, bed_no: 2 },
+//   { username: 'User23', email: 'user23@mail.com', password: 'user23@2026', role: 'user', floor_id: 3, room_id: 12, bed_no: 3 },
+//   { username: 'User24', email: 'user24@mail.com', password: 'user24@2026', role: 'user', floor_id: 3, room_id: 12, bed_no: 4 },
+
+//   { username: 'User25', email: 'user25@mail.com', password: 'user25@2026', role: 'user', floor_id: 4, room_id: 16, bed_no: 1 },
+//   { username: 'User26', email: 'user26@mail.com', password: 'user26@2026', role: 'user', floor_id: 4, room_id: 16, bed_no: 2 },
+//   { username: 'User27', email: 'user27@mail.com', password: 'user27@2026', role: 'user', floor_id: 4, room_id: 16, bed_no: 3 },
+//   { username: 'User28', email: 'user28@mail.com', password: 'user28@2026', role: 'user', floor_id: 4, room_id: 16, bed_no: 4 },
+
+//   { username: 'User29', email: 'user29@mail.com', password: 'user29@2026', role: 'user', floor_id: 4, room_id: 17, bed_no: 1 },
+//   { username: 'User30', email: 'user30@mail.com', password: 'user30@2026', role: 'user', floor_id: 4, room_id: 17, bed_no: 2 },
+//   { username: 'User31', email: 'user31@mail.com', password: 'user31@2026', role: 'user', floor_id: 4, room_id: 17, bed_no: 3 },
+//   { username: 'User32', email: 'user32@mail.com', password: 'user32@2026', role: 'user', floor_id: 4, room_id: 17, bed_no: 4 },
+
+//   { username: 'User33', email: 'user33@mail.com', password: 'user33@2026', role: 'user', floor_id: 5, room_id: 21, bed_no: 1 },
+//   { username: 'User34', email: 'user34@mail.com', password: 'user34@2026', role: 'user', floor_id: 5, room_id: 21, bed_no: 2 },
+//   { username: 'User35', email: 'user35@mail.com', password: 'user35@2026', role: 'user', floor_id: 5, room_id: 21, bed_no: 3 },
+//   { username: 'User36', email: 'user36@mail.com', password: 'user36@2026', role: 'user', floor_id: 5, room_id: 21, bed_no: 4 },
+
+//   { username: 'User37', email: 'user37@mail.com', password: 'user37@2026', role: 'user', floor_id: 6, room_id: 26, bed_no: 1 },
+//   { username: 'User38', email: 'user38@mail.com', password: 'user38@2026', role: 'user', floor_id: 6, room_id: 26, bed_no: 2 },
+//   { username: 'User39', email: 'user39@mail.com', password: 'user39@2026', role: 'user', floor_id: 6, room_id: 26, bed_no: 3 },
+//   { username: 'User40', email: 'user40@mail.com', password: 'user40@2026', role: 'user', floor_id: 6, room_id: 26, bed_no: 4 },
+
+//   { username: 'User41', email: 'user41@mail.com', password: 'user41@2026', role: 'user', floor_id: 2, room_id: 8, bed_no:1}];
+
+// async function insertUsers() {
+//   try {
+//     for (const user of users) {
+//       const hash = await bcrypt.hash(user.password, saltRounds);
+
+//       const query = `
+//         INSERT INTO users (id, username, email, password, role, floor_id, room_id, bed_no)
+//         VALUES (UUID(), ?, ?, ?, ?, ?, ?, ?)
+//       `;
+
+//       await new Promise((resolve, reject) => {
+//         connection.query(
+//           query,
+//           [user.username, user.email, hash, user.role, user.floor_id, user.room_id, user.bed_no],
+//           (err, res) => {
+//             if (err) return reject(err);
+//             resolve(res);
+//           }
+//         );
+//       });
+//     }
+//     console.log("All users inserted successfully!");
+//   } catch (err) {
+//     console.error("Error inserting users:", err.message);
+//   } finally {
+//     connection.end();
+//   }
+// }
+
+// insertUsers();
+ 
+
+
+
+
+//complaint data
+// let querry =`
+
+// INSERT INTO complaints (user_id, category, description, status)
+// VALUES
+// ((SELECT id FROM users WHERE username='User1'), 'wifi', 'Internet not working', 'pending'),
+// ((SELECT id FROM users WHERE username='User2'), 'fan', 'Fan making noise', 'in_progress'),
+// ((SELECT id FROM users WHERE username='User3'), 'water', 'No water supply', 'resolved'),
+// ((SELECT id FROM users WHERE username='User4'), 'light', 'Light fused', 'pending'),
+// ((SELECT id FROM users WHERE username='User5'), 'cleaning', 'Room not cleaned', 'pending');`
+//  try {
+//      connection.query(querry,(err,res)=>{
+//       if(err) throw err;
+//       console.log("complaits add  successfully");
+//      });
+//   }catch(err){
+//     console.log("error inserting users",err.message);
+//   }
+
+
+
+
+//new data
+let q = `
+INSERT INTO payments 
+(user_id, amount, due_date, late_fee, status)
+VALUES
+
+((SELECT id FROM users WHERE username='User1'), 5000, '2026-04-01', 0, 'paid'),
+
+((SELECT id FROM users WHERE username='User2'), 5000, '2026-04-01', 0, 'pending'),
+
+((SELECT id FROM users WHERE username='User3'), 5000, '2026-04-01', 500, 'late'),
+
+((SELECT id FROM users WHERE username='User4'), 5000, '2026-04-01', 0, 'pending'),
+
+((SELECT id FROM users WHERE username='User5'), 5000, '2026-04-01', 0, 'paid');
+`;
+
+try {
+  connection.query(q, (err, res) => {
+    if (err) throw err;
+    console.log("payments added successfully");
+  });
+} catch (err) {
+  console.log("error inserting payments", err.message);
+}
+
+//transaction data
+let q2 = `
+INSERT INTO payment_transactions 
+(payment_id, paid_amount, payment_method, paid_date)
+VALUES
+
+(1, 5000, 'upi', '2026-04-03'),
+(3, 5000, 'cash', '2026-04-10'),
+(5, 5000, 'card', '2026-04-02');
+`;
+try {
+  connection.query(q2, (err, res) => {
+    if (err) throw err;
+    console.log("payments transaction added successfully");
+  });
+} catch (err) {
+  console.log("error inserting payments", err.message);
+}
+
+
+
+
+
+
+// let q =`INSERT INTO notifications (user_id, title, message, type, related_id, is_read)
+// VALUES
+
+// ((SELECT id FROM users WHERE username='User1'), 
+//  'Payment Reminder', 
+//  'Your rent is due on 5th April', 
+//  'payment', 
+//  NULL, 
+//  FALSE),
+
+// ((SELECT id FROM users WHERE username='User2'), 
+//  'Complaint Update', 
+//  'Your fan issue is being fixed', 
+//  'complaint', 
+//  NULL, 
+//  FALSE),
+
+// ((SELECT id FROM users WHERE username='User3'), 
+//  'Payment Received', 
+//  'Your payment has been successfully received', 
+//  'payment', 
+//  NULL, 
+//  TRUE),
+
+// ((SELECT id FROM users WHERE username='User4'), 
+//  'New Announcement', 
+//  'Water supply will be off tomorrow', 
+//  'broadcast', 
+//  NULL, 
+//  FALSE);`
+
+//    try {
+//      connection.query(q,(err,res)=>{
+//       if(err) throw err;
+//       console.log("users successfully");
+//      });
+//   }catch(err){
+//     console.log("error inserting users",err.message);
+//   }
+
+
+
+// let q = `INSERT INTO broadcast_messages (title, content, created_by)
+// VALUES
+
+// ('Power Cut Notice', 
+//  'Electricity will be unavailable from 10AM–2PM', 
+//  (SELECT id FROM users WHERE role='admin' LIMIT 1)),
+
+// ('Water Maintenance', 
+//  'Water supply will be interrupted tomorrow morning', 
+//  (SELECT id FROM users WHERE role='admin' LIMIT 1)),
+
+// ('Hostel Rules Update', 
+//  'New rules have been added. Please check notice board.', 
+//  (SELECT id FROM users WHERE role='admin' LIMIT 1));`
+
+//    try {
+//      connection.query(q,(err,res)=>{
+//       if(err) throw err;
+//       console.log("broadcasts successfully");
+//      });
+//   }catch(err){
+//     console.log("error inserting users",err.message);
+//   }
+
+

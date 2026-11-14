@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HostelMS | Complaints</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family:"Segoe UI", sans-serif;
+  background:#0b0e14;
+  color:#fff;
+  display:flex;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* MOBILE BUTTON */
+.mobile-toggle{
+  display:none;
+  position:fixed;
+  top:15px;
+  left:15px;
+  background:linear-gradient(90deg,#6366f1,#8b5cf6);
+  border:none;
+  color:white;
+  padding:10px 15px;
+  border-radius:8px;
+  font-size:20px;
+  z-index:1300;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:240px;
+  background:#11141d;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  border-right:1px solid #1f2937;
+  transition:0.4s;
+  z-index:1200;
+}
+
+.sidebar.open{ left:0; }
+
+.close-btn{
+  display:none;
+  text-align:right;
+  font-size:22px;
+  cursor:pointer;
+  color:#94a3b8;
+}
+
+.logo{ font-size:20px; font-weight:bold; color:#6366f1; }
+.admin-label{ font-size:10px; color:#64748b; margin-bottom:20px; }
+
+.profile-mini{
+  display:flex;
+  gap:10px;
+  padding:15px 0;
+  border-bottom:1px solid #1f2937;
+  margin-bottom:20px;
+}
+
+.avatar-sm{
+  width:40px;
+  height:40px;
+  background:#312e81;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+}
+
+/* MENU */
+.menu-item{
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:5px;
+  color:#94a3b8;
+  text-decoration:none;
+}
+
+.menu-item:hover,
+.menu-item.active{
+  background:#1e293b;
+  color:#fff;
+}
+
+/* LOGOUT */
+  .logout-area{
+      margin-top:auto;
+      padding-top:10px;
+      border-top:1px solid #1e293b;
+    }
+
+    .logout-btn{
+      width:100%;
+      background:transparent;
+      border:none;
+      color:#cbd5e1;
+      padding:14px;
+      border-radius:12px;
+      text-align:left;
+      cursor:pointer;
+      font-size:15px;
+      transition:0.25s;
+    }
+
+    .logout-btn:hover{
+      background:#182031;
+    }
+
+
+/* MAIN */
+.main{
+  flex:1;
+  padding:30px;
+  overflow-y:auto;
+  min-width:0;
+}
+
+.header h1{ font-size:24px; }
+.header p{ color:#64748b; }
+
+/* TABLE */
+.table-container{
+  margin-top:25px;
+  background:#1a1f2b;
+  border-radius:12px;
+  padding:20px;
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:750px;
+}
+
+th{
+  text-align:left;
+  color:#64748b;
+  font-size:12px;
+  padding-bottom:15px;
+}
+
+td{
+  padding:15px 0;
+  border-top:1px solid #2d3748;
+}
+
+/* USER */
+.user{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.avatar{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  background:#4f46e5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* STATUS */
+.status{
+  padding:4px 12px;
+  border-radius:20px;
+  font-size:12px;
+}
+
+.resolved{ background:#10b98122; color:#10b981; }
+.pending{ background:#ef444422; color:#ef4444; }
+.progress{ background:#f59e0b22; color:#f59e0b; }
+
+/* ACTIONS */
+.actions{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:6px 10px;
+  border:none;
+  border-radius:20px;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.start{ background:#6366f1; color:white; }
+.resolve{ background:#10b981; color:white; }
+
+/* MOBILE */
+@media(max-width:768px){
+
+  .mobile-toggle{ display:block; }
+
+  .sidebar{
+    position:fixed;
+    left:-240px;
+    top:0;
+    height:100vh;
+    box-shadow:10px 0 30px rgba(0,0,0,0.5);
+  }
+
+  .sidebar.open{ left:0; }
+  .close-btn{ display:block; }
+
+  .main{ padding:80px 20px 20px; }
+
+  .actions{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .btn{
+    width:100%;
+    text-align:center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+
+  <div class="close-btn" onclick="toggleSidebar()">✕</div>
+
+  <div class="logo">HostelMS</div>
+  <div class="admin-label">ADMIN PANEL</div>
+
+  <div class="profile-mini">
+    <div class="avatar-sm"><%= admin.username ? admin.username[0].toUpperCase() : 'U' %></div>
+    <div>
+      <div><%= admin.username  %></div>
+      <div style="font-size:12px;color:#64748b"><%= admin.email %></div>
+    </div>
+  </div>
+
+  <a href="/admin/adminDashboard" class="menu-item">📊 Dashboard</a>
+  <a href="/admin/users" class="menu-item">👥 Students</a>
+  <a href="/admin/AllRooms" class="menu-item">🏠 Rooms</a>
+  <a href="/admin/payments" class="menu-item">💰 Payments</a>
+  <a href="/admin/complaints" class="menu-item active">🛠 Complaints</a>
+  <a href="/admin/broadcasts" class="menu-item">📢 Broadcast</a>
+
+  <!--  LOGOUT BUTTON -->
+  <div class="logout-area">
+      <form action="/logout" method="GET">
+        <button class="logout-btn">
+          🚪 Sign Out
+        </button>
+      </form>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div class="header">
+    <h1>Complaints</h1>
+    <p>Manage and resolve resident complaints</p>
+  </div>
+
+  <div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <% complaints.forEach((complaint) => { %>
+
+        <tr>
+
+          <!-- Student -->
+          <td>
+            <div class="user">
+
+              <div class="avatar">
+                <%= complaint.username
+                      .split(" ")
+                      .map(word => word[0])
+                      .join("")
+                      .toUpperCase() %>
+              </div>
+
+              <%= complaint.username %>
+
+            </div>
+          </td>
+
+          <!-- Category -->
+          <td>
+            <%= complaint.category %>
+          </td>
+
+          <!-- Description -->
+          <td>
+            <%= complaint.description %>
+          </td>
+
+          <!-- Date -->
+          <td>
+            <%= new Date(complaint.date).toLocaleDateString() %>
+          </td>
+
+          <!-- Status -->
+          <td>
+
+            <% if (complaint.status === "resolved") { %>
+
+              <span class="status resolved">
+                Resolved
+              </span>
+
+            <% } else if (complaint.status === "in_progress") { %>
+
+              <span class="status progress">
+                In Progress
+              </span>
+
+            <% } else { %>
+
+              <span class="status pending">
+                Pending
+              </span>
+
+            <% } %>
+
+          </td>
+
+          <!-- Actions -->
+          <td>
+
+            <div class="actions">
+
+              <% if (complaint.status === "pending") { %>
+
+                <form action="/admin/complaints/<%= complaint.id %>/start" method="POST">
+                  <button class="btn start">
+                    Start
+                  </button>
+                </form>
+
+                <form action="/admin/complaints/<%= complaint.id %>/resolve" method="POST">
+                  <button class="btn resolve">
+                    Resolve
+                  </button>
+                </form>
+
+              <% } %>
+
+              <% if (complaint.status === "in_progress") { %>
+
+                <form action="/admin/complaints/<%= complaint.id %>/resolve" method="POST">
+                  <button class="btn resolve">
+                    Resolve
+                  </button>
+                </form>
+
+              <% } %>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      <% }) %>
+
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+<script>
+function toggleSidebar(){
+  document.getElementById("sidebar").classList.toggle("open");
+}
+</script>
+
+</body>
+</html>

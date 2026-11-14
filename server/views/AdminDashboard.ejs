@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HostelMS | Owner Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:"Segoe UI",sans-serif;
+      background:#070b14;
+      color:white;
+      display:flex;
+      height:100vh;
+      overflow:hidden;
+    }
+
+    /* ================= SIDEBAR ================= */
+
+    .sidebar{
+      width:255px;
+      background:#0f1420;
+      border-right:1px solid #1f2937;
+      display:flex;
+      flex-direction:column;
+      padding:20px 16px;
+    }
+
+    .logo{
+      font-size:22px;
+      font-weight:700;
+      color:#6d63ff;
+      margin-bottom:2px;
+    }
+
+    .admin-label{
+      font-size:11px;
+      color:#64748b;
+      letter-spacing:1px;
+      margin-bottom:24px;
+    }
+
+    .profile-mini{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:14px 8px 18px;
+      border-bottom:1px solid #1e293b;
+      margin-bottom:18px;
+    }
+
+    .avatar-sm{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:#5b4bff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      font-weight:700;
+      color:white;
+    }
+
+    .profile-name{
+      font-size:15px;
+      font-weight:600;
+      margin-bottom:2px;
+    }
+
+    .profile-email{
+      font-size:12px;
+      color:#64748b;
+    }
+
+    nav{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      flex:1;
+    }
+
+    .menu-item{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:14px 16px;
+      border-radius:14px;
+      color:#94a3b8;
+      text-decoration:none;
+      transition:0.25s;
+      font-size:15px;
+      font-weight:500;
+    }
+
+    .menu-item:hover{
+      background:#182031;
+      color:white;
+    }
+
+    .menu-item.active{
+      background:linear-gradient(90deg,#251b55,#2d2166);
+      color:white;
+      border:1px solid rgba(99,102,241,0.15);
+    }
+
+    .logout-area{
+      margin-top:auto;
+      padding-top:10px;
+      border-top:1px solid #1e293b;
+    }
+
+    .logout-btn{
+      width:100%;
+      background:transparent;
+      border:none;
+      color:#cbd5e1;
+      padding:14px;
+      border-radius:12px;
+      text-align:left;
+      cursor:pointer;
+      font-size:15px;
+      transition:0.25s;
+    }
+
+    .logout-btn:hover{
+      background:#182031;
+    }
+
+    /* ================= MAIN ================= */
+
+    .main{
+      flex:1;
+      padding:22px;
+      overflow-y:auto;
+      background:#070b14;
+    }
+
+    .header{
+      margin-bottom:18px;
+    }
+
+    .header h1{
+      font-size:28px;
+      font-weight:700;
+      margin-bottom:6px;
+    }
+
+    .header p{
+      color:#64748b;
+      font-size:14px;
+    }
+
+    /* ================= STATS ================= */
+
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+      margin-bottom:20px;
+    }
+
+    .stat-card{
+      background:linear-gradient(145deg,#141b2b,#191f31);
+      border-radius:18px;
+      padding:26px 24px;
+      border:1px solid rgba(255,255,255,0.03);
+      position:relative;
+      overflow:hidden;
+      min-height:160px;
+    }
+
+    .stat-card::before{
+      content:"";
+      position:absolute;
+      right:-50px;
+      top:-50px;
+      width:140px;
+      height:140px;
+      background:radial-gradient(circle,rgba(124,108,255,0.15),transparent);
+    }
+
+    .stat-icon{
+      font-size:26px;
+      margin-bottom:20px;
+    }
+
+    .stat-card h3{
+      font-size:14px;
+      color:#7f8aa3;
+      letter-spacing:1px;
+      margin-bottom:16px;
+      text-transform:uppercase;
+    }
+
+    .value{
+      font-size:52px;
+      font-weight:700;
+      line-height:1;
+    }
+
+    .purple{
+      color:#6d63ff;
+    }
+
+    .green{
+      color:#12d48f;
+    }
+
+    .red{
+      color:#ff526d;
+    }
+
+    .yellow{
+      color:#fbbf24;
+    }
+
+    /* ================= CHART SECTION ================= */
+
+    .charts-row{
+      display:grid;
+      grid-template-columns:1.5fr 1fr;
+      gap:18px;
+      margin-bottom:20px;
+    }
+
+    .chart-box{
+      background:linear-gradient(145deg,#141b2b,#191f31);
+      border-radius:20px;
+      padding:24px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .chart-title{
+      font-size:17px;
+      font-weight:700;
+      margin-bottom:24px;
+    }
+
+    .chart-container{
+      position:relative;
+      width:100%;
+      height:260px;
+    }
+
+    /* ================= COMPLAINT STATUS ================= */
+
+    .status-row{
+      margin-bottom:28px;
+    }
+
+    .status-top{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+
+    .progress{
+      width:100%;
+      height:8px;
+      background:#283042;
+      border-radius:20px;
+      overflow:hidden;
+    }
+
+    .progress-fill{
+      height:100%;
+      border-radius:20px;
+    }
+
+    /* ================= TABLE ================= */
+
+    .table-container{
+      background:linear-gradient(145deg,#141b2b,#191f31);
+      border-radius:20px;
+      padding:24px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+    }
+
+    th{
+      text-align:left;
+      color:#6b7280;
+      font-size:13px;
+      font-weight:600;
+      padding-bottom:18px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+
+    td{
+      padding:18px 0;
+      border-top:1px solid #263042;
+      font-size:15px;
+      color:#f1f5f9;
+    }
+
+    .student-cell{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .student-avatar{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      background:#6d63ff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      font-weight:700;
+      color:white;
+    }
+
+    .status{
+      padding:7px 14px;
+      border-radius:30px;
+      font-size:12px;
+      font-weight:600;
+      display:inline-block;
+    }
+
+    .resolved{
+      background:rgba(16,185,129,0.15);
+      color:#10b981;
+    }
+
+    .pending{
+      background:rgba(239,68,68,0.15);
+      color:#ef4444;
+    }
+
+    .in_progress{
+      background:rgba(245,158,11,0.15);
+      color:#f59e0b;
+    }
+
+    /* ================= SCROLLBAR ================= */
+
+    ::-webkit-scrollbar{
+      width:7px;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:#2d3748;
+      border-radius:10px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+
+  <div class="sidebar">
+
+    <div>
+      <div class="logo">HostelMS</div>
+      <div class="admin-label">ADMIN PANEL</div>
+    </div>
+
+    <div class="profile-mini">
+
+      <div class="avatar-sm">
+        <%= admin.username ? admin.username[0].toUpperCase() : 'A' %>
+      </div>
+
+      <div>
+        <div class="profile-name">
+          <%= admin.username %>
+        </div>
+
+        <div class="profile-email">
+          <%= admin.email %>
+        </div>
+      </div>
+
+    </div>
+
+    <nav>
+
+      <a href="/admin/adminDashboard" class="menu-item active">
+        📊 Dashboard
+      </a>
+
+      <a href="/admin/users" class="menu-item">
+        👥 Students
+      </a>
+
+      <a href="/admin/AllRooms" class="menu-item">
+        🏠 Rooms
+      </a>
+
+      <a href="/admin/payments" class="menu-item">
+        💰 Payments
+      </a>
+
+      <a href="/admin/complaints" class="menu-item">
+        🛠️ Complaints
+      </a>
+
+      <a href="/admin/broadcasts" class="menu-item">
+        📢 Broadcast
+      </a>
+
+    </nav>
+
+    <div class="logout-area">
+
+      <form action="/logout" method="GET">
+
+        <button class="logout-btn">
+          🚪 Sign Out
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- ================= MAIN ================= -->
+
+  <div class="main">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+      <h1>Owner Dashboard</h1>
+
+      <p>
+        Welcome back <%= admin.username || 'Admin' %> 👋
+      </p>
+
+    </div>
+
+    <!-- STATS -->
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+
+        <div class="stat-icon purple">👥</div>
+
+        <h3>Total Students</h3>
+
+        <div class="value purple">
+          <%= totalUsers %>
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <div class="stat-icon green">💰</div>
+
+        <h3>Payments Received</h3>
+
+        <div class="value green">
+          <%= totalNoOfrecived %>
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <div class="stat-icon red">🔴</div>
+
+        <h3>Unpaid This Month</h3>
+
+        <div class="value red">
+          <%= totalUnpaid %>
+        </div>
+
+      </div>
+
+      <div class="stat-card">
+
+        <div class="stat-icon yellow">🛠️</div>
+
+        <h3>Pending Complaints</h3>
+
+        <div class="value yellow">
+          <%= complaintStats.total %>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CHART SECTION -->
+
+    <div class="charts-row">
+
+      <!-- PAYMENT -->
+
+      <div class="chart-box">
+
+        <div class="chart-title">
+          💳 Payment Collection (₹)
+        </div>
+
+        <div class="chart-container">
+
+          <canvas id="paymentChart"></canvas>
+
+        </div>
+
+      </div>
+
+      <!-- COMPLAINT STATUS -->
+
+      <div class="chart-box">
+
+        <div class="chart-title">
+          🛠️ Complaint Status
+        </div>
+
+        <div class="status-row">
+
+          <div class="status-top">
+            <span>Pending</span>
+
+            <span style="color:#ff526d;">
+              <%= complaintStats.pending %>
+            </span>
+          </div>
+
+          <div class="progress">
+            <div
+              class="progress-fill"
+              style="width:<%= complaintStats.pendingPercent %>%; background:#ff526d;">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="status-row">
+
+          <div class="status-top">
+            <span>In Progress</span>
+
+            <span style="color:#fbbf24;">
+              <%= complaintStats.in_progress %>
+            </span>
+          </div>
+
+          <div class="progress">
+            <div
+              class="progress-fill"
+              style="width:<%= complaintStats.inProgressPercent %>%; background:#fbbf24;">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="status-row">
+
+          <div class="status-top">
+            <span>Resolved</span>
+
+            <span style="color:#10b981;">
+              <%= complaintStats.resolved %>
+            </span>
+          </div>
+
+          <div class="progress">
+            <div
+              class="progress-fill"
+              style="width:<%= complaintStats.resolvedPercent %>%; background:#10b981;">
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TABLE -->
+
+    <div class="table-container">
+
+      <div class="chart-title">
+        🕒 Recent Complaints
+      </div>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Student</th>
+            <th>Issue</th>
+            <th>Date</th>
+            <th>Status</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <% recentComplaints.forEach(complaint => { %>
+
+            <tr>
+
+              <td>
+
+                <div class="student-cell">
+
+                  <div class="student-avatar">
+                    <%= complaint.username ? complaint.username.substring(0,2).toUpperCase() : 'U' %>
+                  </div>
+
+                  <span>
+                    <%= complaint.username %>
+                  </span>
+
+                </div>
+
+              </td>
+
+              <td>
+                <%= complaint.description %>
+              </td>
+
+              <td>
+                <%= new Date(complaint.created_at).toLocaleDateString() %>
+              </td>
+
+              <td>
+
+                <span class="status <%= complaint.status %>">
+
+                  <% if(complaint.status === "resolved"){ %>
+
+                    ● Resolved
+
+                  <% } else if(complaint.status === "in_progress"){ %>
+
+                    ● In Progress
+
+                  <% } else { %>
+
+                    ● Pending
+
+                  <% } %>
+
+                </span>
+
+              </td>
+
+            </tr>
+
+          <% }) %>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+  <!-- ================= CHART JS ================= -->
+
+  <script>
+
+    const labels =
+      <%- JSON.stringify(revenueChart.labels) %>;
+
+    const values =
+      <%- JSON.stringify(revenueChart.values.map(Number)) %>;
+
+      const maxValue = Math.max(...values);
+
+const roundedMax = Math.ceil(maxValue / 5000) * 5000;
+    const ctx =
+      document.getElementById("paymentChart");
+
+    new Chart(ctx, {
+
+      type:"bar",
+
+      data:{
+
+        labels:labels,
+
+        datasets:[{
+
+          label:"Monthly Revenue",
+
+          data:values,
+
+          backgroundColor:[
+            "#6d63ff",
+            "#786cff",
+            "#6558ff",
+            "#857bff",
+            "#7467ff",
+            "#9087ff"
+          ],
+
+          borderRadius:10,
+
+          borderSkipped:false,
+
+          barThickness:60
+
+          
+
+        }]
+
+      },
+
+      options:{
+
+        responsive:true,
+
+        maintainAspectRatio:false,
+
+        plugins:{
+
+          legend:{
+            display:false
+          }
+
+        },
+
+        scales:{
+
+          x:{
+
+            grid:{
+              display:false
+            },
+
+            ticks:{
+              color:"#94a3b8",
+              font:{
+                size:13
+              }
+            }
+
+          },
+
+          y:{
+
+            beginAtZero:true,
+          
+            max:roundedMax,
+
+            grid:{
+              color:"#263042"
+            },
+
+            ticks:{
+
+              color:"#94a3b8",
+              stepSize: 2500,
+
+              callback:function(value){
+                return "₹" + value;
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>

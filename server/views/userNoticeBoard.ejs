@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="shortcut icon" href="C:\Users\subra\Downloads\hostel-logo.png" type="image/x-icon">
+<title>HostelMS | Notices</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #0f172a;
+  color: #fff;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  background: #020617;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  color: #94a3b8;
+  text-decoration: none;
+}
+
+.menu-item.active {
+  background: linear-gradient(90deg,#6366f1,#8b5cf6);
+  color: #fff;
+}
+
+/* MAIN */
+.main {
+  flex:1;
+  padding:40px;
+  overflow-y:auto;
+}
+
+/* NOTICE CARD */
+.notice-card {
+  background: linear-gradient(135deg,#1e293b,#0f172a);
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 18px;
+  border-left: 4px solid #6366f1;
+  transition: 0.3s;
+}
+
+.notice-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.notice-title {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.notice-date {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2 style="margin-bottom:20px;">🏠 HostelMS</h2>
+
+  <a href="/user/userDashboard" class="menu-item">My Room</a>
+  <a href="/user/payments" class="menu-item">Payments</a>
+  <a href="/user/complaints" class="menu-item">Complaints</a>
+  <a href="/user/notices" class="menu-item active">Notices</a>
+
+  <div style="margin-top:auto;">
+    <form action="/logout">
+      <button style="width:100%; background:#ef4444; padding:10px; border:none; border-radius:8px; color:#fff;">
+        🚪 Sign Out
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <h2>Notices & Announcements</h2>
+  <p style="color:#94a3b8; margin-bottom:25px;">
+    Messages from hostel management
+  </p>
+
+  <% notices.forEach(n => { %>
+    <div class="notice-card">
+      <div class="notice-title">
+        <%= n.icon %> <%= n.title %>
+      </div>
+
+      <div style="color:#cbd5f5;">
+        <%= n.message %>
+      </div>
+
+      <div class="notice-date">
+        <%=  new Date(n.created_at).toISOString().split('T')[0] %> %>
+      </div>
+    </div>
+  <% }) %>
+
+   <p style="color:#94a3b8; margin-bottom:25px;">
+    Announcement Messages from hostel management
+  </p>
+   <% broadcasts.forEach(n => { %>
+    <div class="notice-card">
+      <div class="notice-title">
+        <%= n.icon %> <%= n.title %>
+      </div>
+
+      <div style="color:#cbd5f5;">
+        <%= n.content %>
+      </div>
+
+      <div class="notice-date">
+        <%= new Date(n.created_at).toISOString().split('T')[0] %> %>
+      </div>
+    </div>
+  <% }) %>
+
+</div>
+
+</body>
+</html>
